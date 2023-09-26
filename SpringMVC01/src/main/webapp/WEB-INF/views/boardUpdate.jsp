@@ -22,24 +22,26 @@
 			<div class="panel-heading">Board</div>
 			<div class="panel-body">
 
-				<form action="boardInsert.do" method="post">
+				<form action="boardUpdate.do" method="post">
 					<table class="table">
 						<tr>
-							<td>제목</td>
-							<td><input type="text" name="title" class="form-control"></td>
+							<input type="hidden" name="idx" value="${requestScope.board.idx}">
+							<td>제목</td>							
+							<td><input type="text" name="title" class="form-control" value="${requestScope.board.title}"></td>
 						</tr>
 						<tr>
 							<td>내용</td>
-							<td><textarea rows="7" cols="" name="content" class="form-control"></textarea></td>
+							<td><textarea rows="7" cols="" name="content" class="form-control">${requestScope.board.content}</textarea></td>
 						</tr>
 						<tr>
 							<td>작성자</td>
-							<td><input type="text" name="writer" class="form-control"></td>
+							<td><input type="text" name="writer" class="form-control" value="${requestScope.board.writer}" readonly></td>
 						</tr>
 						<tr>
 							<td colspan="2" align="center">
 								<button type="submit" class="btn btn-success">등록</button>
 								<button type="reset" class="btn btn-warning">초기화</button>
+								<a href="boardSelectList.do" class="btn btn-primary">목록</a></td>
 							</td>
 						</tr>
 					</table>

@@ -35,26 +35,16 @@
 					<!-- BoardController에서 받아온 list데이터를 for문 사용해서 아래에 출력 -->
 
 					<%
-					List<Board> voList = (List<Board>)request.getAttribute("voList");%>
-					<%-- 					<%for(int i = 0; i < voList.size(); i++){
-					%>
-					<tr>
-						<td><%=voList.get(i).getIdx() %></td>
-						<td><%=voList.get(i).getTitle()%></td>
-						<td><%=voList.get(i).getWriter() %></td>
-						<td><%=voList.get(i).getIndate() %></td>
-						<td><%=voList.get(i).getCount() %></td>
-					</tr>
-					<%} %> --%>
+					List<Board> boardList = (List<Board>)request.getAttribute("boardList");%>
 
 					<!-- EL문법으로 출력하기 -->
-					<c:forEach var="vo" items="${voList}" varStatus="s">
+					<c:forEach var="boardList" items="${boardList}" varStatus="s">
 						<tr>
 							<td>${s.count}</td>
-							<td>${vo.title}</td>
-							<td>${vo.writer}</td>
-							<td>${vo.indate}</td>
-							<td>${vo.count}</td>
+							<td><a href="boardContent.do?idx=${boardList.idx}">${boardList.title}</a></td>
+							<td>${boardList.writer}</td>
+							<td>${boardList.indate}</td>
+							<td>${boardList.count}</td>
 						</tr>
 					</c:forEach>
 					

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+@Data
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,5 +19,7 @@ public class Board {
 	private String writer;
 	private String indate;
 	private int count;
+	private int good;
+	private int bad;
 	
 }
