@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +23,7 @@
 			<div class="panel-heading">Board</div>
 			<div class="panel-body">
 
-				<form action="boardUpdate.do" method="post">
+				<form action="../boardUpdate.do" method="post">
 					<table class="table">
 						<tr>
 							<input type="hidden" name="idx" value="${requestScope.board.idx}">
@@ -41,7 +42,7 @@
 							<td colspan="2" align="center">
 								<button type="submit" class="btn btn-success">등록</button>
 								<button type="reset" class="btn btn-warning">초기화</button>
-								<a href="boardSelectList.do" class="btn btn-primary">목록</a></td>
+								<a href="../boardSelectList.do" class="btn btn-primary">목록</a></td>
 							</td>
 						</tr>
 					</table>

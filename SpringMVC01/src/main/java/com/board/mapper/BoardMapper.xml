@@ -23,10 +23,6 @@
 		UPDATE board SET title = #{title}, content = #{content}, writer = #{writer} WHERE idx = #{idx}
 	</update>
 	
-	<update id="boardCountUpdate">
-			UPDATE board SET count = count+1 WHERE idx = #{idx}
-	</update>
-	
 	<update id="boardGood">
 			UPDATE board SET good = good+1 WHERE idx = #{idx}
 	</update>

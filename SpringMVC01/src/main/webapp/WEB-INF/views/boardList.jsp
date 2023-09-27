@@ -1,9 +1,11 @@
+<%@page import="java.util.Collections"%>
 <%@page import="com.board.entity.Board"%>
 <%@page import="java.util.List"%>
 <%@page import="org.springframework.ui.Model"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,18 +26,22 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Board</div>
 			<div class="panel-body">
+				<div style="text-align: right;"><input ><a href="#" type="button" class="btn btn-primary btn-sm">검색</a></div>
 				<table class="table table-bordq`ered table-hover">
 					<tr>
 						<td>번호</td>
 						<td>제목</td>
 						<td>작성자</td>
 						<td>작성일</td>
+						<td>추천수</td>
 						<td>조회수</td>
 					</tr>
 					<!-- BoardController에서 받아온 list데이터를 for문 사용해서 아래에 출력 -->
 
 					<%
-					List<Board> boardList = (List<Board>)request.getAttribute("boardList");%>
+					List<Board> boardList = (List<Board>)request.getAttribute("boardList");
+					
+					%>
 
 					<!-- EL문법으로 출력하기 -->
 					<c:forEach var="boardList" items="${boardList}" varStatus="s">
@@ -43,7 +49,8 @@
 							<td>${s.count}</td>
 							<td><a href="boardContent.do?idx=${boardList.idx}">${boardList.title}</a></td>
 							<td>${boardList.writer}</td>
-							<td>${boardList.indate}</td>
+							<td>${fn:split(boardList.indate, " ")[0]}</td>
+							<td>${boardList.good}</td>
 							<td>${boardList.count}</td>
 						</tr>
 					</c:forEach>

@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,12 +37,11 @@ public class BoardController {
 		System.out.println("[게시글 작성]");
 		System.out.println(board.toString());	
 		
-		// 개행해서 DB에 저장
-		String content = board.getContent();
-		content = content.replace("\r\n","<br>");		
-		board.setContent(content);
-		
-		boardMapper.boardUpdate(board);
+		/*
+		 * // 개행해서 DB에 저장 String content = board.getContent(); content =
+		 * content.replace("\r\n","<br>"); board.setContent(content);
+		 */		
+		boardMapper.boardInsert(board);
 		
 		// sendRedirect 방식으로 요청 URL 알려주기
 		return "redirect:/boardSelectList.do";
@@ -76,18 +76,22 @@ public class BoardController {
 		
 		System.out.println("[게시글 상세조회]");
 		System.out.println(idx+"번 게시글");
+
+		// 게시글 추천
 		boardMapper.boardCountUpdate(idx);
-		Board board = boardMapper.boardSelect(idx);		
+		Board board = boardMapper.boardSelect(idx);
+		
 		System.out.println(board.getTitle());	
 		model.addAttribute("board",board);
 		return "boardDetail";
 	}
 	
 	// 게시글 수정하는 jsp로 이동 - boardUpdateForm.do
-	@RequestMapping("/boardUpdateForm.do")
-	public String boardUpdateForm(@RequestParam("idx") int idx, Model model) {
+	@RequestMapping("/boardUpdateForm.do/{idx}")
+	public String boardUpdateForm(@PathVariable("idx") int idx, Model model) {
 				
-		Board board = boardMapper.boardSelect(idx);		
+		Board board = boardMapper.boardSelect(idx);
+		
 		System.out.println(board.getTitle());	
 		model.addAttribute("board",board);
 		
@@ -96,15 +100,10 @@ public class BoardController {
 	
 	// 게시글 수정 - boardUpdate.do
 	@RequestMapping("/boardUpdate.do")
-	public String boardUpdate(Board board, Model model) {
+	public String boardUpdate(Board board) {
 		
 		System.out.println("[게시글 수정]");
 		System.out.println(board.toString());	
-		
-		// 개행해서 DB에 저장
-		String content = board.getContent();
-		content = content.replace("\r\n","<br>");		
-		board.setContent(content);
 		
 		boardMapper.boardUpdate(board);
 		

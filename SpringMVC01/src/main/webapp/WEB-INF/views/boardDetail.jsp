@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +16,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+<% pageContext.setAttribute("newLine", "\n"); %>
 
 	<div class="container">
 		<h2>SpringMVC01</h2>
@@ -31,8 +33,12 @@
 						<td>${requestScope.board.writer}</td>
 					</tr>
 					<tr>
+						<td>작성일</td>
+						<td>${requestScope.board.indate}</td>
+					</tr>
+					<tr>
 						<td>내용</td>
-						<td height="200px">${requestScope.board.content}</td>
+						<td height="200px">${fn:replace(requestScope.board.content, newLine, "<br>") }</td>
 					</tr>
 					<tr>
 						<!-- 추천 및 비추 -->
@@ -47,9 +53,9 @@
 							<button type="button" class="btn btn-primary position-relative"
 								id="bad">
 								비추 <span
-									class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-									>
-									<div id="badCount"> ${requestScope.board.bad}</div> </span>
+									class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+									<div id="badCount">${requestScope.board.bad}</div>
+								</span>
 							</button>
 						</td>
 						<script type="text/javascript">
@@ -102,7 +108,7 @@
 					</tr>
 					<tr>
 						<td colspan="2" align="center"><a
-							href="boardUpdateForm.do?idx=${requestScope.board.idx}"
+							href="boardUpdateForm.do/${requestScope.board.idx}"
 							class="btn btn-success">수정</a> <a
 							href="boardDelete.do?idx=${requestScope.board.idx}"
 							class="btn btn-warning">삭제</a> <a href="boardSelectList.do"
