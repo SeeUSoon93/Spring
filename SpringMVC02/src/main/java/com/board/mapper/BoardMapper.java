@@ -30,6 +30,7 @@ public interface BoardMapper {
 	
 	// 게시글 추천
 	public int boardGood(int idx);
+	// 게시글 비추
 	public int boardBad(int idx);
 	
 	

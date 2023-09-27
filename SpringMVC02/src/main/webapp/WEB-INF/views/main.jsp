@@ -33,10 +33,10 @@
 		const makeView=(data)=>{ // data = [{idx:1, title:"ff",..},{},...]
 			console.log(data);
 		
-			var listHTML = "<table table class='table table-sm'>";
+			var listHTML = "<table table class='table table-sm' style='text-align:center'>";
 			listHTML += "<thead class='table-light'><tr>";
 			listHTML += "<th scope='col'>번호</th>";
-			listHTML += "<th scope='col'>제목</th>";
+			listHTML += "<th scope='col' width='35%'>제목</th>";
 			listHTML += "<th scope='col'>작성자</th>";
 			listHTML += "<th scope='col'>작성일</th>";
 			listHTML += "<th scope='col'>추천</th>";
@@ -46,15 +46,15 @@
 			$.each(data, (index, obj)=>{
 				listHTML += "<tr>";
 				listHTML += "<th scope='row'>"+(index+1)+"</th>";
-				listHTML += "<td>"+obj.title+"</td>";
-				listHTML += "<td>"+obj.writer+"</td>";
-				listHTML += "<td>"+obj.indate+"</td>";
+				listHTML += "<td style='text-align:left'>"+obj.title+"</td>";
+				listHTML += "<td><div onclick='boardSelect()'>"+obj.writer+"</td>";
+				listHTML += "<td>"+obj.indate.split(' ',1)+"</td>"; // split(' ',num) ''기준으로 자르고, 배열에 담긴 값중 num개 만 출력 
 				listHTML += "<td>"+obj.good+"</td>";
 				listHTML += "<td>"+obj.count+"</td>";
 				listHTML += "</tr>";
 			});		
 			listHTML += "</tbody></table>";
-			listHTML += "<a href='#' class='btn btn-outline-primary btn-sm' onclick='goForm()'>글쓰기</a>";
+			listHTML += "<button type='button' class='btn btn-outline-primary btn-sm' onclick='goForm()' style='float:right'>글쓰기</button>";
 			
 			$('#view').html(listHTML);
 		}
@@ -69,6 +69,26 @@
 			$("#view").css("display","block")
 		}
 		
+		// 게시글 작성
+		const boardInsert=()=>{
+			$.ajax({
+				url : "boardInsert.do",
+				data: $("#form").serialize(),
+				type: 'POST',
+				success : ()=>{location.reload();}, // 새로고침
+				error : ()=>{alert("error");}				
+			});
+		}
+		
+		// 게시글 조회
+		const boardSelect=()=>{
+			$.ajax({
+				url : "boardSelect.do",
+				data: {"idx" : idx},
+				success : ()=>{location.reload();}, // 새로고침
+				error : ()=>{alert("error");}				
+			});			
+		}
 		
 		
 	</script>
@@ -84,23 +104,23 @@
     	
     	<!-- 글쓰기 폼 -->
     	<div class="card-body" id="wform" style="display:none;">
-    		<form action="boardInsert.do" method="post">   							
-					<table class="table">					
+    		<form id="form" name="form" th:object="${board}" >   							
+					<table class="table" >					
 						<tr>
 							<th scope='col'>제목</td>
-							<td><input type="text" name="title" class="form-control"></td>
+							<td><input type="text" id="title" name="title" class="form-control"></td>
 						</tr>
 						<tr>
 							<th scope='col'>내용</td>
-							<td><textarea rows="7" cols="" name="content" class="form-control"></textarea></td>
+							<td><textarea rows="7" cols="" id="content" name="content" class="form-control"></textarea></td>
 						</tr>
 						<tr>
 							<th scope='col'>작성자</td>
-							<td><input type="text" name="writer" class="form-control"></td>
+							<td><input type="text" id="writer" name="writer" class="form-control"></td>
 						</tr>
 						<tr>
 							<td colspan="2" align="center">
-									<button type="button" class="btn btn-outline-success btn-sm">등록</button>
+									<button type="button" class="btn btn-outline-success btn-sm" onclick='boardInsert()'>등록</button>
 									<button type="button" class="btn btn-outline-secondary btn-sm">초기화</button>
 									<button type="button" class="btn btn-outline-primary btn-sm" onclick='goList()'>목록</button>
 							</td>

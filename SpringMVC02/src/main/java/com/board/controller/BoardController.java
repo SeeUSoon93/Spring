@@ -48,11 +48,23 @@ public class BoardController {
 		return list;
 	}
 	
-	// 게시글 작성하는 곳으로 이동하기
-	/*
-	 * @RequestMapping("/boardForm.do") public @ResponseBody List<Board>
-	 * boardInsert(){ System.out.println("게시글 작성 할거냐?"); }
-	 */
+	// 게시글 작성 / boardInsert.do
+	@RequestMapping("/boardInsert.do")
+	public @ResponseBody void boardInsert(Board board){
+		System.out.println("게시글 작성 할거냐?");
+		boardMapper.boardInsert(board);
+		System.out.println("게시글 작성 했냐?");
+	}
+	
+	// 하는 중
+	// 게시글 조회 / boardSelect.do
+	@RequestMapping("/boardSelect.do")
+	public @ResponseBody Board boardSelect(int idx){
+		System.out.println("게시글 조회 할거냐?");
+		Board board = boardMapper.boardSelect(idx);
+		System.out.println("게시글 불러왔냐?");
+		return board;
+	}
 	
 	
 }
