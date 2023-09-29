@@ -1,5 +1,8 @@
 package com.board.entity;
 
+import java.math.BigDecimal;
+import java.security.Timestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -14,12 +17,10 @@ import lombok.ToString;
 public class Board {
 
 	private int idx;
-	private String title;
-	private String content;
-	private String writer;
-	private String indate;
-	private int count;
-	private int good;
-	private int bad;
+	private String bTitle;
+	private String bContent;
+	private String nick;
+	private String bDate;
+	private int bGood;
 	
-}
+	}

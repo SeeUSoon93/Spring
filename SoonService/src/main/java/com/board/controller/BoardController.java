@@ -37,6 +37,12 @@ public class BoardController {
 		return "home";
 	}
 	
-	
+	// 게시글 전체조회 /boardSelectList.do
+	@RequestMapping("/boardSelectList.do")
+	public @ResponseBody List<Board> boardSelectList(){
+		System.out.println("게시글 전체 조회 할거냐?");
+		List<Board> list = boardMapper.boardSelectList();
+		return list;
+	}
 	
 }

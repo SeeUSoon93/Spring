@@ -1,5 +1,3 @@
--- Board 게시판 테이블 생성
-
 CREATE TABLE member(
 	email varchar(100) not null,		
 	nick varchar(100) not null,
@@ -7,11 +5,20 @@ CREATE TABLE member(
 	primary key(email)
 );
 
+CREATE TABLE board (
+    idx INT NOT NULL AUTO_INCREMENT,
+    bTitle VARCHAR(100) NOT NULL,
+    bContent VARCHAR(4000) NOT NULL,
+    nick varchar(100) not null,
+    bDate DATETIME DEFAULT NOW(),
+    bGood INT DEFAULT 0,
+    PRIMARY KEY (idx)
+);
 
-INSERT INTO board(title, content, writer) values('연휴에 낚시 갈 사람', '고멤은 10시까지 영산강으로 집합!', '순이');
 
+INSERT INTO member(email, nick, pw) values('a@b.c', '관리자','1234');
+INSERT INTO board(bTitle, bContent, nick) values('테스트 제목', '테스트 내용','관리자');
 
 -- 값 조회
 SELECT * FROM member;
 
-DELETE FROM board WHERE idx = 6;

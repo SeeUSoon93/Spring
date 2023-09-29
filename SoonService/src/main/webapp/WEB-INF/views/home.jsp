@@ -15,15 +15,58 @@
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
 
-  <script src="./file/SoonTest.js"></script>
-  <link rel="stylesheet" href="./file/SoonTest.css">
-
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
   <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.3.0/kakao.min.js"
     integrity="sha384-70k0rrouSYPWJt7q9rSTKpiTfX6USlMYjZUtr1Du+9o4cGvhPAWxngdtVZDdErlh"
     crossorigin="anonymous"></script>
   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+  <script type="text/javascript">
+	$(document).ready(()=>{
+		// HTML 구조가 다 로딩이 된 후에 loadList()실행
+		loadList()
+	});
+	
+		const loadList=()=>{
+			// BoardController에서 게시글 전체목록을 가져오는 기능
+			$.ajax({
+				url : "boardSelectList.do",
+				dataType : "json",
+				success : makeView, //callback함수
+				error : ()=>{alert("error");}				
+			});
+		}
+		// 성공 시 실행할 makeView 함수 -> jsp에 데이터를 뿌려주는 함수
+		const makeView=(data)=>{ // data = [{idx:1, title:"ff",..},{},...]
+			console.log(data);
+		
+			var listHTML = "<div class='card'>";
+			listHTML += "<div class='card-body'>";			
+			// jQuery 반복문
+			$.each(data, (index, obj)=>{
+				listHTML += "<h5 class='card-title'>"+obj.bTitle+"</h5>";
+        listHTML += "<h6 class='card-subtitle mb-2 text-muted'>"+obj.nick+"</h6>";
+        listHTML += "<p class='card-text'>"+obj.bContent+"</p><hr>";
+        listHTML += "<p class='card-text' style='font-size: smaller;'>"+obj.bDate+"</p>";
+        listHTML += "<p class='card-text'>💓<span>"+obj.bGood+"</span></p>";
+        listHTML += "<div id='repleArea'><input type='text' id='reple' name='reple' class='form-control'><button id='reIns' type='button' class='btn btn-primary btn-sm' onclick='repleInsert()'>등록</button></div>";
+			});		
+			listHTML += "</div></div>";
+			
+			$('#CList').html(listHTML);
+		}
+
+
+
+
+
+
+
+  </script>
+
+
+
 </head>
 
 <body>
@@ -171,24 +214,7 @@
 
   <!-- 타임라인 목록 -->
   <div id="CList">
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">포폴 존나 쓰기 싫네</h5>
-        <h6 class="card-subtitle mb-2 text-muted">순이</h6>
-        <p class="card-text">아니 뭐 써야할지<br>
-          전혀 감이 안잡히는데?<br>
-          어쩌냐..
-        </p>
-        <hr>
-        <p class="card-text" style="font-size: smaller;">2023.09.27 13:23:00</p>
-        <hr>
-        <p class="card-text">💓 <span>7</span></p>
-        <div id="repleArea">
-          <input type="text" id="reple" name="reple" class="form-control">
-          <button id="reIns" type="button" class="btn btn-primary btn-sm" onclick='repleInsert()'>등록</button>
-        </div>
-      </div>
-    </div>
+    
   </div>
 
 
