@@ -45,4 +45,18 @@ public class BoardController {
 		return list;
 	}
 	
+	// 게시글 작성 / boardInsert.do
+	@RequestMapping("/boardInsert.do")
+	public @ResponseBody void boardInsert(Board board){
+		System.out.println("게시글 작성 할거냐?");
+		boardMapper.boardInsert(board);
+		System.out.println("게시글 작성 했냐?");
+	}
+	
+	// 게시글 추천
+	@RequestMapping("/boardGood.do")
+	public @ResponseBody void boardgood(Board board){
+	String bTitle = board.getBTitle();
+	boardMapper.boardGood(bTitle);
+	}
 }

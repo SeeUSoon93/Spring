@@ -11,6 +11,10 @@ import com.board.entity.Board;
 public interface BoardMapper {
 	// 게시글 리스트 조회
 	public List<Board> boardSelectList();
+
+	public void boardInsert(Board board);
+
+	public void boardGood(String bTitle);
 	
 	
 	

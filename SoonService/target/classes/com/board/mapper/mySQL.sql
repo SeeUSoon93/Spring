@@ -15,11 +15,18 @@ CREATE TABLE sboard (
     PRIMARY KEY (idx)
 );
 
+CREATE TABLE reple(			
+	nick varchar(100) not null,
+	bTitle VARCHAR(100) NOT NULL,
+	rContent VARCHAR(4000) NOT NULL
+);
+
+
+
 
 INSERT INTO member(email, nick, pw) values('a@b.c', '관리자','1234');
 INSERT INTO sboard(bTitle, bContent, nick) values('테스트 제목', '테스트 내용','관리자');
 
 -- 값 조회
 SELECT * FROM member;
-SELECT * FROM sboard;
 
