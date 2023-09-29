@@ -4,7 +4,7 @@
 
 	<!-- 메소드 이름과 동일하게 id를 설정 -->
 	<select id="boardSelectList" resultType="com.board.entity.Board">
-		SELECT * FROM board
+		SELECT * FROM sboard
 		ORDER BY bDate desc
 	</select>
 

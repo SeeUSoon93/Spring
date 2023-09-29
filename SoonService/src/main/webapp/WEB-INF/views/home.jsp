@@ -45,11 +45,11 @@
 			listHTML += "<div class='card-body'>";			
 			// jQuery 반복문
 			$.each(data, (index, obj)=>{
-				listHTML += "<h5 class='card-title'>"+obj.bTitle+"</h5>";
+				listHTML += "<h5 class='card-title'>"+obj.btitle+"</h5>";
         listHTML += "<h6 class='card-subtitle mb-2 text-muted'>"+obj.nick+"</h6>";
-        listHTML += "<p class='card-text'>"+obj.bContent+"</p><hr>";
-        listHTML += "<p class='card-text' style='font-size: smaller;'>"+obj.bDate+"</p>";
-        listHTML += "<p class='card-text'>💓<span>"+obj.bGood+"</span></p>";
+        listHTML += "<p class='card-text'>"+obj.bcontent+"</p><hr>";
+        listHTML += "<p class='card-text' style='font-size: smaller;'>"+obj.bdate+"</p>";
+        listHTML += "<p class='card-text'>💓<span>"+obj.bgood+"</span></p>";
         listHTML += "<div id='repleArea'><input type='text' id='reple' name='reple' class='form-control'><button id='reIns' type='button' class='btn btn-primary btn-sm' onclick='repleInsert()'>등록</button></div>";
 			});		
 			listHTML += "</div></div>";
