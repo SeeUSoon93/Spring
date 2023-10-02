@@ -164,7 +164,8 @@
             listHTML += "<div id='CList'>";
             listHTML += "<div class='card'>";
             listHTML += "<div class='card-body'>";
-            listHTML += "<form id='GnR'><h5 class='card-title'>" + obj.btitle + "</h5>";
+            var bTitle = obj.btitle;
+            listHTML += "<form id='GnR'><input type='hidden' name='bTitle' value='"+bTitle+"'></input><h5 class='card-title'>" + obj.btitle + "</h5>";
             listHTML += "<h6 class='card-subtitle mb-2 text-muted'>" + obj.nick + "</h6>";
             listHTML += "<p class='card-text'>" + obj.bcontent + "</p><hr>";
             listHTML += "<p class='card-text' style='font-size: smaller;'>" + obj.bdate + "</p>";
@@ -202,6 +203,7 @@
         }
         //
         const goGood = () => {
+        	console.log('btitle');
           $.ajax({
             url: "boardGood.do", /* 어디로 보낼지 */
             data: $("#form").serialize(), /* 어떤 데이터를 보낼지 */
