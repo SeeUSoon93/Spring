@@ -46,17 +46,32 @@
 			$.each(data, (index, obj)=>{
 				listHTML += "<tr>";
 				listHTML += "<th scope='row'>"+(index+1)+"</th>";
-				listHTML += "<td style='text-align:left'>"+obj.title+"</td>";
-				listHTML += "<td><div onclick='boardSelect()'>"+obj.writer+"</td>";
+				listHTML += "<td style='text-align:left' id='t"+obj.idx+"'><a href='javascript:goContent("+obj.idx+")'>"+obj.title+"</a></td>";
+				listHTML += "<td>"+obj.writer+"</td>";
 				listHTML += "<td>"+obj.indate.split(' ',1)+"</td>"; // split(' ',num) ''기준으로 자르고, 배열에 담긴 값중 num개 만 출력 
 				listHTML += "<td>"+obj.good+"</td>";
 				listHTML += "<td>"+obj.count+"</td>";
 				listHTML += "</tr>";
-			});		
+			
+				// 상세 게시글 보여주기
+				listHTML += "<tr id='c"+obj.idx+"' style='display:none;'>";
+				listHTML += "<td>내용</td>";			
+				listHTML += "<td colspan='4'>";			
+				listHTML += "<textarea id='ta"+obj.idx+"' readonly class='form-control' rows='7'>";
+				listHTML += "</textarea>";			
+				
+				listHTML += "<span id='up"+obj.idx+"'><button class='btn btn-success' onclick='goUpdateForm("+obj.idx+")'>수정</button></span> &nbsp;";
+				listHTML += "<button class='btn btn-warning' onclick='goDelete("+obj.idx+")'>삭제</button>";
+				
+				listHTML += "</td>";			
+				listHTML += "</tr>";
+			});	
+			
 			listHTML += "</tbody></table>";
 			listHTML += "<button type='button' class='btn btn-outline-primary btn-sm' onclick='goForm()' style='float:right'>글쓰기</button>";
 			
 			$('#view').html(listHTML);
+			goList();
 		}
 		
 		const goForm=()=>{
@@ -75,20 +90,90 @@
 				url : "boardInsert.do",
 				data: $("#form").serialize(),
 				type: 'POST',
-				success : ()=>{location.reload();}, // 새로고침
+				success : loadList, // 새로고침
+				error : ()=>{alert("error");}				
+			});
+			$("#fclear").trigger("click");
+		}
+		
+		// 게시글 상세조회
+		const goContent = (idx) => {
+		    if ($("#c" + idx).css("display") == "table-row") {
+		        $("#c" + idx).css("display", "none");
+		        // 조회수 올리기
+		        $.ajax({
+		            url: "boardCount.do",
+		            data: { "idx": idx },
+		            type: 'POST',
+		            success: 
+		                // Ajax 요청이 성공했을 때 수행할 동작을 여기에 작성
+		                // 예: alert("조회수가 증가되었습니다.");
+		            loadList
+		            ,
+		            error : ()=>{alert("error");}
+		        });
+		    } else {
+		    	// 내용 비동기 방식으로 가져온 다음 태그 형식으로 넣어주면 됨 
+		    	
+		     $.ajax({
+		            url: "boardSelect.do",
+		            data: { "idx": idx },
+		            dataType: "json",
+		            success: (data)=>{
+		            	$("#ta"+idx).val(data.content);
+		            },
+		            error : ()=>{alert("error");}
+		        });
+		    	
+		    	
+		    	
+		        $("#c" + idx).css("display", "table-row");
+
+		    }
+		}
+
+		// 게시글 삭제
+		const goDelete=(idx)=>{
+			$.ajax({
+				url : "boardDelete.do",
+				data: {"idx":idx},
+				type: 'POST',
+				success : loadList, // 새로고침
+				error : ()=>{alert("error");}				
+			});
+			$("#fclear").trigger("click");
+		}		
+		
+		// 수정화면 만들어주는 부분
+		const goUpdateForm=(idx)=>{
+			$("#ta"+idx).attr("readonly", false);
+			
+			// title 부분을 input태그로 바꾸기
+			var title = $("#t"+idx).text();
+			var newInput = "<input type='text' id='nt"+idx+"' class='form-control' value='"+title+"'>"; 
+			$("#t"+idx).html(newInput);
+			
+			// 수정 버튼을 DB값을 바꾸는 버튼으로 바꾸기
+			var newButton = "<button class='btn btn-primary' onclick='goUpdate("+idx+")'>등록</button>";
+			$("#up"+idx).html(newButton);
+		}
+		
+		// 값을 수정해주기
+		const goUpdate=(idx)=>{
+			var title = $("#nt"+idx).val();
+			var content = $("#ta"+idx).val();			
+			$.ajax({
+				url : "boardUpdate.do",
+				data: {'title':title,
+						'content':content,
+						'idx':idx},
+				type: 'POST',
+				success : loadList, // 새로고침
 				error : ()=>{alert("error");}				
 			});
 		}
 		
-		// 게시글 조회
-		const boardSelect=()=>{
-			$.ajax({
-				url : "boardSelect.do",
-				data: {"idx" : idx},
-				success : ()=>{location.reload();}, // 새로고침
-				error : ()=>{alert("error");}				
-			});			
-		}
+		
 		
 		
 	</script>
@@ -121,7 +206,7 @@
 						<tr>
 							<td colspan="2" align="center">
 									<button type="button" class="btn btn-outline-success btn-sm" onclick='boardInsert()'>등록</button>
-									<button type="button" class="btn btn-outline-secondary btn-sm">초기화</button>
+									<button type="reset" class="btn btn-outline-secondary btn-sm" id='fclear'>초기화</button>
 									<button type="button" class="btn btn-outline-primary btn-sm" onclick='goList()'>목록</button>
 							</td>
 						</tr>

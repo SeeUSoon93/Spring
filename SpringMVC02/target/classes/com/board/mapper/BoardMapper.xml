@@ -20,7 +20,7 @@
 	</delete>
 	
 	<update id="boardUpdate" parameterType="com.board.entity.Board">
-		UPDATE board SET title = #{title}, content = #{content}, writer = #{writer} WHERE idx = #{idx}
+		UPDATE board SET title = #{title}, content = #{content} WHERE idx = #{idx}
 	</update>
 	
 	<update id="boardGood">
@@ -30,4 +30,5 @@
 	<update id="boardBad">
 			UPDATE board SET bad = bad-1 WHERE idx = #{idx}
 	</update>
+	
 </mapper>

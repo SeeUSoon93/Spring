@@ -15,7 +15,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +31,8 @@ import com.board.mapper.BoardMapper;
 // Handler(Controller-POJO) Mapping이 Controller를 찾기위해 @Controller로 명시해야 함
 @Controller
 public class BoardController {
-
+	
+	
 	@Autowired
 	private BoardMapper boardMapper;
 	
@@ -56,15 +60,34 @@ public class BoardController {
 		System.out.println("게시글 작성 했냐?");
 	}
 	
-	// 하는 중
-	// 게시글 조회 / boardSelect.do
-	@RequestMapping("/boardSelect.do")
-	public @ResponseBody Board boardSelect(int idx){
-		System.out.println("게시글 조회 할거냐?");
-		Board board = boardMapper.boardSelect(idx);
-		System.out.println("게시글 불러왔냐?");
-		return board;
+	// 게시글 삭제
+	@RequestMapping("/boardDelete.do")
+	public @ResponseBody void boardDelete(@RequestParam("idx") int idx){
+		System.out.println("게시글 삭제 할거냐?");
+		boardMapper.boardDelete(idx);
+		System.out.println("게시글 삭제 했냐?");
+	}
+	// 조회수
+	@RequestMapping("/boardCount.do")
+	public @ResponseBody void boardCount(@RequestParam("idx") int idx){
+		System.out.println("조회수 올리니?");
+		boardMapper.boardCountUpdate(idx);
 	}
 	
+	// 게시글 수정 / boardUpdate.do
+	@RequestMapping("/boardUpdate.do")
+	public @ResponseBody void boardUpdate(Board board){
+		System.out.println("게시글 수정 할거냐?");
+		System.out.println(board.toString());
+		boardMapper.boardUpdate(board);
+		System.out.println("게시글 수정 했냐?");
+	}
+	// 게시글 상세 조회
+	@RequestMapping("/boardSelect.do")
+	public @ResponseBody Board boardSelect(@RequestParam("idx") int idx){
+		System.out.println("상세조회 할거냐?");
+		Board board = boardMapper.boardSelect(idx);
+		return board;
+	}
 	
 }

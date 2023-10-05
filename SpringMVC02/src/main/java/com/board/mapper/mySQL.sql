@@ -18,4 +18,4 @@ INSERT INTO board(title, content, writer) values('연휴에 낚시 갈 사람', 
 -- 값 조회
 SELECT * FROM board;
 
-DELETE FROM board WHERE idx = 6;
+DELETE FROM board;
