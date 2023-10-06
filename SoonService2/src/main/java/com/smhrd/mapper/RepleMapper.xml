@@ -6,5 +6,8 @@
 	<select id="repleSelectList" resultType="com.smhrd.entity.reple">
 		SELECT * FROM reple WHERE bTitle = #{bTitle}
 	</select>
-
+	
+	<insert id="repleInsert" parameterType="com.smhrd.entity.reple">
+		INSERT INTO reple(bTitle, rContent, nick) values(#{bTitle}, #{rContent}, #{nick})
+	</insert>
 </mapper>

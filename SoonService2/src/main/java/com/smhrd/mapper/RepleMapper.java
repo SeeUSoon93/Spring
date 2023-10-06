@@ -13,6 +13,8 @@ public interface RepleMapper {
 	
 	public List<reple> repleSelectList(String bTitle);
 
+	public void repleInsert(reple reple);
+
 	
 	
 	

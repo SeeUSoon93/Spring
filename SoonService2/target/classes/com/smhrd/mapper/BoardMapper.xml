@@ -15,4 +15,8 @@
 	<update id="boardGood">
 		UPDATE sboard SET bGood = bGood+1 WHERE idx = #{idx}
 	</update>
+	
+	<select id="boardSelect" resultType="com.smhrd.entity.Board">
+		SELECT * FROM sboard WHERE idx = #{idx}		
+	</select>
 </mapper>

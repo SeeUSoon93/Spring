@@ -56,9 +56,11 @@ public class BoardController {
 	
 	// 게시글 추천
 	@RequestMapping("/boardGood.do")
-	public @ResponseBody void boardgood(@RequestParam("idx") int idx){
+	public @ResponseBody Board boardgood(@RequestParam("idx") int idx){
 	System.out.println("게시글  추천 할거냐?");
 	System.out.println(idx);
 	boardMapper.boardGood(idx);
+	Board board =  boardMapper.boardSelect(idx);
+	return board;
 	}
 }

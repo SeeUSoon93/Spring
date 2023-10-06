@@ -101,7 +101,7 @@
           justify-content: space-around;
         }
 
-        #reple {
+        .reple {
           width: 85%;
 
         }
@@ -117,7 +117,7 @@
           justify-content: center;
         }
 
-        #good {
+        .good {
           background-color: #ffffff;
           color: rgb(0, 0, 0);
           height: 30px;
@@ -171,6 +171,7 @@
 		                data: { "bTitle": obj.btitle },
 		                dataType: "json",
 		                success: (data2) => {
+		                	console.log('다시 불러옴');
 		                    // 게시글 요소를 동적으로 생성
 		                    const $post = $("<div class='CList'></div>");
 		                    const $card = $("<div class='card'></div>");
@@ -182,14 +183,14 @@
 		                    $cardBody.append("<h6 class='card-subtitle mb-2 text-muted'>" + obj.nick + "</h6>");
 		                    $cardBody.append("<p class='card-text'>" + obj.bcontent + "</p><hr>");
 		                    $cardBody.append("<p class='card-text' style='font-size: smaller;'>" + obj.bdate + "</p>");
-		                    $cardBody.append("<p class='card-text'><a href='javascript:goGood(" + obj.idx + ")'><button type='button' id='good'>💓</button></a><span id='goodCount'>" + obj.bgood + "</span></p>");
+		                    $cardBody.append("<p class='card-text'><a href='javascript:goGood(" + obj.idx + ")'><button type='button' class='good'>💓</button></a><span id='goodCount" + obj.idx + "'>" + obj.bgood + "</span></p>");
 		
 		                    // 댓글 출력
 		                    $.each(data2, (index, obj2)=>{
 		                   	 	$cardBody.append("<p class='card-text' style='font-size: smaller;'>" + obj2.rcontent + "</p>");
 		                    });
 		                    // 댓글 입력 폼
-		                    $cardBody.append("<div id='repleArea'><input type='text' id='reple' name='reple' class='form-control'><button id='reIns' type='button' class='btn btn-primary btn-sm' onclick='repleInsert()'>등록</button></div>");
+		                    $cardBody.append("<div id='repleArea'><input type='text' id='reple" + obj.btitle + "' name='reple' class='form-control'><button id='reIns' type='button' class='btn btn-primary btn-sm' onclick='repleInsert("+obj.btitle+")'>등록</button></div>");
 		
 		                    // 게시글 요소를 화면에 추가
 		                    $card.append($cardBody);
@@ -242,13 +243,29 @@
           $.ajax({
             url: "boardGood.do", /* 어디로 보낼지 */
             data: { "idx": idx }, /* 어떤 데이터를 보낼지 */
+            dataType:"json",
             type: 'POST',
-            success: loadList,
+            success:(data)=>{
+            	$("#goodCount"+idx).html(data.bgood);            	
+            },
             error: () => { alert("error"); }
           });
           
         }
-
+        
+        const repleInsert=(btitle)=>{
+			console.log(btitle);
+			var reple = $("#reple"+btitle).val();	
+			$.ajax({
+				url : "repleInsert.do",
+				data: { "bTitle": btitle,
+						"rContent" : reple
+				}, /* 어떤 데이터를 보낼지 */
+	            dataType:"json",
+				success : loadList, // 새로고침
+				error : ()=>{alert("error");}				
+			});
+		}
 
 
       </script>

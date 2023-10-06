@@ -46,12 +46,16 @@ public class RepleController {
 		return list;
 	}
 	
-	/*
-	 * // 게시글 작성 / boardInsert.do
-	 * 
-	 * @RequestMapping("/boardInsert.do") public @ResponseBody void
-	 * boardInsert(Board board){ System.out.println("게시글 작성 할거냐?");
-	 * boardMapper.boardInsert(board); System.out.println("게시글 작성 했냐?"); }
-	 */
+	
+	@RequestMapping("/repleInsert.do")
+	public @ResponseBody List<reple> repleInsert(reple reple) {
+		
+		System.out.println("리플 담?");
+		System.out.println(reple.toString());
+		RepleMapper.repleInsert(reple);
+		List<reple> list = RepleMapper.repleSelectList(reple.getBTitle());
+		return list;
+	}
+	
 	
 }
