@@ -21,7 +21,7 @@ idx INT NOT NULL,
 	rContent VARCHAR(4000) NOT NULL
 );
 
-drop table reple;
+
 
 
 INSERT INTO member(email, nick, pw) values('a@b.c', '관리자','1234');
@@ -30,4 +30,7 @@ INSERT INTO reple values('관리자', '테스트 제목','댓글 테스트');
 
 -- 값 조회
 SELECT * FROM member;
+
+
+DELETE FROM reple;
 

@@ -187,7 +187,7 @@
 		
 		                    // 댓글 출력
 		                    $.each(data2, (index, obj2)=>{
-		                   	 	$cardBody.append("<p class='card-text' style='font-size: smaller;'>" + obj2.rcontent + "</p><div id='newreple'"+ obj.idx + "></div>");
+		                   	 	$cardBody.append("<div id='newreple"+ obj.idx + "'></div><p class='card-text' style='font-size: smaller;'>" + obj2.rcontent + "</p>");
 		                    });
 		                    // 댓글 입력 폼
 		                    $cardBody.append("<div id='repleArea'><input type='text' id='reple" + obj.idx + "' name='reple' class='form-control'><button id='reIns' type='button' class='btn btn-primary btn-sm' onclick='repleInsert(" + obj.idx + ")'>등록</button></div>");
@@ -245,8 +245,8 @@
             data: { "idx": idx }, /* 어떤 데이터를 보낼지 */
             dataType:"json",
             type: 'POST',
-            success:(data)=>{
-            	$("#goodCount"+idx).html(data.bgood);            	
+            success:(data)=>{            	
+            	$("#goodCount"+idx).html(data.bgood);             	           	
             },
             error: () => { alert("error"); }
           });
@@ -264,7 +264,12 @@
 						"rContent" : rContent },
 				dataType:"json",
 				success : (data)=>{
-	            	$("#newreple"+idx).html(data.rcontent);            	
+					console.log(data)
+            		var con = "";					
+            		con += "<p class='card-text' style='font-size: smaller;'>" + data[data.length-1].rcontent + "</p>";
+            		
+            	console.log(con)
+	            	$("#newreple"+idx).prepend(con);            	
 	            },
 				error : ()=>{alert("error");}				
 			});
@@ -281,10 +286,10 @@
       <!-- 헤더 -->
       <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid" id="headCon">
-          <a class="navbar-brand" href="/">순이</a>
+          <a class="navbar-brand" href="/controller">순이</a>
           <ul class="nav nav-pills">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">타임라인</a>
+              <a class="nav-link active" aria-current="page" href="/controller">타임라인</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">마이페이지</a>
@@ -292,6 +297,7 @@
           </ul>
         </div>
       </nav>
+      <!-- 글쓰기 폼 -->
       <div id='writer'><input type='text' id='boardInsert' name='reple' class='form-control' placeholder="무엇이든 적어보세요!"
           onclick='goForm()'></div>
 
@@ -383,8 +389,6 @@
                 <!-- 
               ✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️✌️
              -->
-
-
 
               </ul>
             </div>
