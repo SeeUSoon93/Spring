@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class reple {
 	
-	private String bTitle;
+	private int idx;
 	private String rContent;
 	private String nick;
 }

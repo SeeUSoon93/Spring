@@ -2,12 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smhrd.mapper.RepleMapper">
 
-	<!-- 메소드 이름과 동일하게 id를 설정 -->
 	<select id="repleSelectList" resultType="com.smhrd.entity.reple">
-		SELECT * FROM reple WHERE bTitle = #{bTitle}
+		SELECT * FROM reple WHERE idx = #{idx}
 	</select>
 	
 	<insert id="repleInsert" parameterType="com.smhrd.entity.reple">
-		INSERT INTO reple(bTitle, rContent, nick) values(#{bTitle}, #{rContent}, #{nick})
+		INSERT INTO reple(idx, rContent,nick) values(#{idx}, #{rContent},"관리자")
 	</insert>
 </mapper>

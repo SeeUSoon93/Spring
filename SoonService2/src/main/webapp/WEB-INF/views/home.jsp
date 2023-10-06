@@ -168,7 +168,7 @@
 		
 		            $.ajax({
 		                url: "repleSelectList.do",
-		                data: { "bTitle": obj.btitle },
+		                data: { "idx": obj.idx },
 		                dataType: "json",
 		                success: (data2) => {
 		                	console.log('다시 불러옴');
@@ -187,10 +187,10 @@
 		
 		                    // 댓글 출력
 		                    $.each(data2, (index, obj2)=>{
-		                   	 	$cardBody.append("<p class='card-text' style='font-size: smaller;'>" + obj2.rcontent + "</p>");
+		                   	 	$cardBody.append("<p class='card-text' style='font-size: smaller;'>" + obj2.rcontent + "</p><div id='newreple'"+ obj.idx + "></div>");
 		                    });
 		                    // 댓글 입력 폼
-		                    $cardBody.append("<div id='repleArea'><input type='text' id='reple" + obj.btitle + "' name='reple' class='form-control'><button id='reIns' type='button' class='btn btn-primary btn-sm' onclick='repleInsert("+obj.btitle+")'>등록</button></div>");
+		                    $cardBody.append("<div id='repleArea'><input type='text' id='reple" + obj.idx + "' name='reple' class='form-control'><button id='reIns' type='button' class='btn btn-primary btn-sm' onclick='repleInsert(" + obj.idx + ")'>등록</button></div>");
 		
 		                    // 게시글 요소를 화면에 추가
 		                    $card.append($cardBody);
@@ -253,16 +253,19 @@
           
         }
         
-        const repleInsert=(btitle)=>{
-			console.log(btitle);
-			var reple = $("#reple"+btitle).val();	
+        const repleInsert=(idx)=>{
+			console.log(idx);
+			var rContent = $("#reple"+idx).val();
+			console.log(rContent);
 			$.ajax({
 				url : "repleInsert.do",
-				data: { "bTitle": btitle,
-						"rContent" : reple
-				}, /* 어떤 데이터를 보낼지 */
-	            dataType:"json",
-				success : loadList, // 새로고침
+				type:'POST',
+				data: { "idx": idx,
+						"rContent" : rContent },
+				dataType:"json",
+				success : (data)=>{
+	            	$("#newreple"+idx).html(data.rcontent);            	
+	            },
 				error : ()=>{alert("error");}				
 			});
 		}

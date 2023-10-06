@@ -36,10 +36,10 @@ public class RepleController {
 	
 	// 리플 전체조회 
 	@RequestMapping("/repleSelectList.do")
-	public @ResponseBody List<reple> repleSelectList(@RequestParam("bTitle") String bTitle){
+	public @ResponseBody List<reple> repleSelectList(@RequestParam("idx") int idx){
 		System.out.println("리플 전체 조회 할거냐?");
-		System.out.println(bTitle);
-		List<reple> list = RepleMapper.repleSelectList(bTitle);
+		System.out.println(idx);
+		List<reple> list = RepleMapper.repleSelectList(idx);
 		if(list.size() != 0) {
 			System.out.println(list.get(0).toString());
 		}
@@ -53,7 +53,7 @@ public class RepleController {
 		System.out.println("리플 담?");
 		System.out.println(reple.toString());
 		RepleMapper.repleInsert(reple);
-		List<reple> list = RepleMapper.repleSelectList(reple.getBTitle());
+		List<reple> list = RepleMapper.repleSelectList(reple.getIdx());
 		return list;
 	}
 	

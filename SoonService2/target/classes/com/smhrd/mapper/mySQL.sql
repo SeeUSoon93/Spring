@@ -15,13 +15,13 @@ CREATE TABLE sboard (
     PRIMARY KEY (idx)
 );
 
-CREATE TABLE reple(			
+CREATE TABLE reple(	
+idx INT NOT NULL,
 	nick varchar(100) not null,
-	bTitle VARCHAR(100) NOT NULL,
 	rContent VARCHAR(4000) NOT NULL
 );
 
-
+drop table reple;
 
 
 INSERT INTO member(email, nick, pw) values('a@b.c', '관리자','1234');

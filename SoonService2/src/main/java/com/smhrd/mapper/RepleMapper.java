@@ -11,7 +11,7 @@ import com.smhrd.entity.reple;
 @Mapper
 public interface RepleMapper {
 	
-	public List<reple> repleSelectList(String bTitle);
+	public List<reple> repleSelectList(int idx);
 
 	public void repleInsert(reple reple);
 
