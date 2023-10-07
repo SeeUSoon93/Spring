@@ -29,7 +29,7 @@ INSERT INTO sboard(bTitle, bContent, nick) values('테스트 제목', '테스트
 INSERT INTO reple values('관리자', '테스트 제목','댓글 테스트');
 
 -- 값 조회
-SELECT * FROM member;
+SELECT * FROM board;
 
 
 DELETE FROM reple;

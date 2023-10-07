@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.mapper.RepleMapper">
+
+	<!-- 메소드 이름과 동일하게 id를 설정 -->
+	<select id="repleSelectList" resultType="com.smhrd.entity.reple">
+		SELECT * FROM reple WHERE bTitle = #{bTitle}
+	</select>
+	
+	<insert id="repleInsert" parameterType="com.smhrd.entity.reple">
+		INSERT INTO reple(bTitle, rContent, nick) values(#{bTitle}, #{rContent}, #{nick})
+	</insert>
+</mapper>
