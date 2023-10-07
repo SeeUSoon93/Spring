@@ -1,7 +1,0 @@
-INDEX VERSION 1.131+C:\eGovFrame-4.0.0\workspace.edu\.metadata\.plugins\org.eclipse.jdt.core
-996075082.index
-947486224.index
-3598131004.index
-312621648.index
-1316817553.index
-2708484010.index
