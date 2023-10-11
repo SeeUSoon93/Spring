@@ -6,4 +6,9 @@
 		SELECT * FROM member WHERE memId = #{memId}
 	</select>
 	
+	<insert id="memberInsert" parameterType="com.board.entity.Member">
+		INSERT INTO member(memId, memPw, memName, memAge,memGender,memEmail)
+		values(#{memId}, #{memPw}, #{memName}, #{memAge}, #{memGender}, #{memEmail})
+	</insert>
+	
 </mapper>
