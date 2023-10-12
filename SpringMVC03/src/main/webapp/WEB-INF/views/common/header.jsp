@@ -35,17 +35,7 @@
   }
   
   </style>
-  <script type="text/javascript">
-  $(document).ready(()=>{
-		if(${empty mvo}){
-			if(${logout eq "logout"}){
-				$("#logoutModal").modal("show");				
-			}
-		}
-	});	 
   
-  
-  </script>
   
 </head>
 <body>
@@ -69,7 +59,7 @@
 	      <c:when test="${empty mvo}">
 	      <ul class="nav navbar-nav navbar-right" id="successLogin">
 	        <li><a href="${contextPath}/joinForm.do"><i class="bi bi-people"></i>&nbsp회원가입</a></li>
-	        <li><a href="#"><i class="bi bi-box-arrow-right"></i>&nbsp로그인</a></li>
+	        <li><a href="${contextPath}/loginForm.do"><i class="bi bi-box-arrow-right"></i>&nbsp로그인</a></li>
 	      </ul>
 	      </c:when>
 	      
@@ -84,29 +74,7 @@
     </div>
   </div>
 </nav>
-		<!-- 로그아웃 모달 -->
-		<div class="modal" id="logoutModal">
-		  <div class="modal-dialog">
-	      <!-- Modal Header -->
-		    <div class="modal-content">
-		      <div id="msgType" class="modal-header bg-info">
-		        <h4 class="modal-title" >로그아웃 성공</h4>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-		      </div>
-		
-		      <!-- Modal body -->
-		      <div class="modal-body">
-		        <p id="">로그아웃에 성공하셨습니다</p>
-		      </div>
-		
-		      <!-- Modal footer -->
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
-		        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
+
 </body>
 </html>
 

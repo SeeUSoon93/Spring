@@ -2,6 +2,7 @@ package com.board.controller;
 
 import java.lang.ProcessBuilder.Redirect;
 
+import javax.security.auth.login.LoginContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
@@ -27,6 +28,33 @@ public class MemberController {
 	@RequestMapping("/joinForm.do")
 	public String joinForm() {
 		return "member/joinForm";
+	}
+	// 로그인 페이지로 이동
+	@GetMapping("/loginForm.do")
+	public String loginForm() {
+		return "member/loginForm";
+	}
+	
+	// 로그인 기능
+	@PostMapping("/login.do")
+	public String Login(Member m, HttpSession session, RedirectAttributes rttr) {
+		System.out.println("로그인 하냐");
+		System.out.print(m.toString());
+		Member member = memberMapper.memberLogin(m);
+		
+		if(member != null) {
+			// 로그인 성공
+			session.setAttribute("mvo", m);
+			rttr.addFlashAttribute("msgType", "성공 메세지");
+			rttr.addFlashAttribute("msg", "로그인에 성공했습니다");
+			return "redirect:/";			
+		}else {
+			// 로그인 실패
+			System.out.println("로그인 실패!!");
+			rttr.addFlashAttribute("msgType", "실패 메세지");
+			rttr.addFlashAttribute("msg", "아이디 또는 비밀번호를 확인해주세요");
+			return "member/loginForm";
+		}
 	}
 	
 	@GetMapping("/registerCheck.do")

@@ -10,6 +10,8 @@ public interface MemberMapper {
 	public Member memberSelect(String memId);
 
 	public int memberInsert(Member member);
+
+	public Member memberLogin(Member m);
 	
 	
 	

@@ -11,4 +11,9 @@
 		values(#{memId}, #{memPw}, #{memName}, #{memAge}, #{memGender}, #{memEmail})
 	</insert>
 	
+	<select id="memberLogin" parameterType="com.board.entity.Member" resultType="com.board.entity.Member">
+		SELECT * FROM member WHERE memId = #{memId} AND memPw = #{memPw}
+	</select>
+	
+	
 </mapper>
