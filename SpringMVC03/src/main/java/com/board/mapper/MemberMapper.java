@@ -1,20 +1,33 @@
 package com.board.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Update;
+
+import com.board.entity.Board;
 import com.board.entity.Member;
 
 @Mapper
 public interface MemberMapper {
-	
-	// 닉네임 상세 조회
-	public Member memberSelect(String memId);
 
-	public int memberInsert(Member member);
+	public Member registerCheck(String memId);
 
-	public Member memberLogin(Member m);
-	
-	
-	
-	
-	
+	public int join(Member m);
+
+	public Member login(Member m);
+
+	public int update(Member m);
+
+	public int updateImage(Member mvo);
+
+
+
 }
+
+
+
+
+
+
+

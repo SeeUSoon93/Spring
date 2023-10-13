@@ -1,80 +1,60 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <style type="text/css">
- 
-  a {
-     text-decoration: none;
-     
-  }
-  
-  .navbar-collapse {
-     justify-content: space-between;
-  }
-  
-  .navbar-nav>li{
-     padding: 0 20px;
-
-  }
-  
-  .navbar-nav>li>a {
-    color : #C7C8C9;
-  }
-  #header{
-  	margin-bottom:50px;
-  }
-  
-  </style>
-  
-  
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
 <body>
+
 <!-- 변수 만드는 태그 -->
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
-
-<nav id="header" class="navbar navbar-expand-sm bg-dark navbar-dark">
+	<nav class="navbar navbar-inverse">
   <div class="container-fluid">
-    <a class="navbar-brand" href="${contextPath}/">김군순짱</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="boardMain.do">게시판</a>
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="${contextPath}/">Spring</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="${contextPath}/">Home</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Page 1-1</a></li>
+            <li><a href="#">Page 1-2</a></li>
+            <li><a href="#">Page 1-3</a></li>
+          </ul>
         </li>
+        <li><a href="#">Page 2</a></li>
+        <li><a href="${contextPath}/boardMain.do">게시판</a></li>
       </ul>
       
-      <c:choose>
-	      <c:when test="${empty mvo}">
-	      <ul class="nav navbar-nav navbar-right" id="successLogin">
-	        <li><a href="${contextPath}/joinForm.do"><i class="bi bi-people"></i>&nbsp회원가입</a></li>
-	        <li><a href="${contextPath}/loginForm.do"><i class="bi bi-box-arrow-right"></i>&nbsp로그인</a></li>
-	      </ul>
-	      </c:when>
-	      
-	      <c:otherwise>
-	      <ul class="nav navbar-nav navbar-right" id="successLogin">
-	        <li><a href=""><i class="bi bi-person-square"></i>&nbsp프로필</a></li>
-	        <li><a href=""><i class="bi bi-person-circle"></i>&nbsp회원정보 수정</a></li>
-	        <li><a href="${contextPath}/logout.do"><i class="bi bi-box-arrow-left"></i>&nbsp로그아웃</a></li>
-	      </ul>
-	      </c:otherwise>
-      </c:choose>
+      
+      <c:if test="${empty mvo}">
+    	  <ul class="nav navbar-nav navbar-right">
+     	   <li><a href="${contextPath}/joinForm.do"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+     	   <li><a href="${contextPath}/loginForm.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+     	 </ul>
+      </c:if>
+      
+      <c:if test="${not empty mvo}">
+    	  <ul class="nav navbar-nav navbar-right">
+     	   <li><a href="${contextPath}/updateForm.do"><span class="glyphicon glyphicon-wrench"></span> 회원정보수정</a></li>
+     	   <li><a href="${contextPath}/imageForm.do"><span class="glyphicon glyphicon-picture"></span> 프로필업로드</a></li>
+     	   <li><a href="${contextPath}/logout.do"><span class="glyphicon glyphicon-log-out"></span> 로그아웃</a></li>
+     	 </ul>
+      </c:if>
+      
+      
     </div>
   </div>
 </nav>
-
 </body>
 </html>
-

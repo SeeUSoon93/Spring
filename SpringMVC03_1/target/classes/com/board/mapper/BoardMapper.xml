@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.board.mapper.BoardMapper">
+	
+	<!-- 메소드 이름과 동일하게 id를 설정 -->
+	<select id="boardSelectList" resultType="com.board.entity.Board">
+		SELECT * FROM board ORDER BY indate desc
+	</select>
+	
+	<select id="boardSelect" resultType="com.board.entity.Board">
+		SELECT * FROM board WHERE idx = #{idx}
+	</select>
+
+	<insert id="boardInsert" parameterType="com.board.entity.Board">
+		INSERT INTO board(title, content, writer) values(#{title}, #{content}, #{writer});
+	</insert>
+	
+	<delete id="boardDelete" parameterType="int">
+		DELETE FROM board WHERE idx = #{idx}
+	</delete>
+	
+	<update id="boardUpdate" parameterType="com.board.entity.Board">
+		UPDATE board SET title = #{title}, content = #{content} WHERE idx = #{idx}
+	</update>
+	
+	<update id="boardGood">
+			UPDATE board SET good = good+1 WHERE idx = #{idx}
+	</update>
+	
+	<update id="boardBad">
+			UPDATE board SET bad = bad-1 WHERE idx = #{idx}
+	</update>
+	
+</mapper>

@@ -7,10 +7,8 @@
 	<!-- API(HikariCP) -->
 	<!-- bean : 객체를 생성하는 태그 -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-		<property name="driverClassName"
-			value="com.mysql.jdbc.Driver" />
-		<property name="jdbcUrl"
-			value="jdbc:mysql://localhost:3306/com" />
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/com" />
 		<property name="username" value="com" />
 		<property name="password" value="com01" />
 	</bean>
